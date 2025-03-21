@@ -5,9 +5,11 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    if @list.save
+    if @list.save #投稿成功したとき
+      flash[:notice] = "投稿に成功しました。"
       redirect_to list_path(@list.id)
-    else
+    else #投稿失敗したとき
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end  #対象カラムにデータが入力されていればsave=trueでリダイレクト。falseの場合、入力不備となり新規投稿ページへ。
   end
